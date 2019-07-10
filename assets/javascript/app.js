@@ -1,42 +1,49 @@
-var topics = ["bird", "dog", "cat"];
+var topics = [
+  "Football",
+  "The Office TV Show",
+  "Braveheart",
+  "Cat",
+  "Apples",
+  "emoji"
+];
 
 // =========== Function for dumping the JSON content for each button into the div
-function displayTopicInfo(topic) {
-  //   var topic = $(this).val();
-  var queryURL =
-    "https://api.giphy.com/v1/gifs/search?q=" +
-    topic +
-    "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
-  console.log(queryURL);
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
+// function displayTopicInfo(topic) {
+//   var queryURL =
+//     "https://api.giphy.com/v1/gifs/search?q=" +
+//     topic +
+//     "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+//   console.log(queryURL);
+//   $.ajax({
+//     url: queryURL,
+//     method: "GET"
+//   }).then(function(response) {
+//     console.log(response);
+//     var results = response.data;
+//     console.log(results);
 
-
-    console.log(response);
-    var results = response.data;
-    console.log(results);
-
-    for (var i = 0; i < results.length; i++) {
-      var topicDiv = $("<div>");
-      var p = $("<p>");
-      p.text(results[i].rating);
-      var topicImage = $("<img>");
-      topicImage.attr("src", results[i].images.fixed_height.url);
-      topicDiv.append(p);
-      topicDiv.append(topicImage);
-      $("#topic-view").prepend(topicDiv);
-    }
-  });
-}
+//     for (var i = 0; i < results.length; i++) {
+//       var topicDiv = $("<div>");
+//       var p = $("<p>");
+//       p.text(results[i].rating.toUpperCase());
+//       var topicImage = $("<img id=\"gif\">");
+//       topicImage.attr("src", results[i].images.fixed_height.url);
+//       topicImage.attr("data-animate", results[i].images.fixed_height.url);
+//       topicImage.attr("data-still", results[i].images.fixed_height_still.url);
+//       console.log("still=" + results[i].images.fixed_height_still.url);
+//       topicImage.attr("data-state", "still");
+//       topicDiv.append(p);
+//       topicDiv.append(topicImage);
+//       $("#topic-view").prepend(topicDiv);
+//     }
+//   });
+// }
 // =========== Function for displaying movie data
 function renderButtons() {
   $("#buttons-view").empty();
 
   for (var i = 0; i < topics.length; i++) {
-    // var a = $('<button type="button" class="btn btn-default">');
-    var a = $('<button>');
+    var a = $('<button type="button" class="btn btn-primary">');
     a.addClass("topicClass");
     a.attr("data-name", topics[i]);
     a.text(topics[i]);
@@ -51,20 +58,19 @@ $("#btnSubmit").on("click", function(event) {
   var topicEntry = $("#topic")
     .val()
     .trim();
-  console.log("btnSubmit onclick: " + topicEntry);
   topics.push(topicEntry);
+  $("#topic").val("");
 
   renderButtons();
 });
 
 //  ===========  MAIN
-// $(".topicClass").on("click"), function() {
-//   alert("hello");
-// }
-// Generic function for displaying the movieInfo
-$(document).on("click", '.topicClass', function() {
+// $(document).ready(function() {
+//   $('[data-toggle="tooltip"]').tooltip();
+// });
+
+$(document).on("click", ".topicClass", function() {
   var topicSelected = $(this).attr("data-name");
-  console.log("topic button click: " + topicSelected);
   $("#topic-view").html("");
   var queryURL =
     "https://api.giphy.com/v1/gifs/search?q=" +
@@ -75,21 +81,38 @@ $(document).on("click", '.topicClass', function() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
     var results = response.data;
-    console.log(results);
 
     for (var i = 0; i < results.length; i++) {
       var topicDiv = $("<div>");
       var p = $("<p>");
-      p.text(results[i].rating);
-      var topicImage = $("<img>");
+      p.text("Rating: " + results[i].rating);
+      var topicImage = $(
+        '<img data-toggle="tooltip" title="Click to stop animation!" class="gif">'
+      );
       topicImage.attr("src", results[i].images.fixed_height.url);
+      topicImage.attr("data-animate", results[i].images.fixed_height.url);
+      topicImage.attr("data-still", results[i].images.fixed_height_still.url);
+      topicImage.attr("data-state", "still");
+
       topicDiv.append(p);
       topicDiv.append(topicImage);
       $("#topic-view").prepend(topicDiv);
     }
   });
+});
+
+$(document).on("click", ".gif", function() {
+  var state = $(this).attr("data-state");
+  if (state === "still") {
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+    $(this).attr("title", "Click to stop animation!");
+  } else {
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+    $(this).attr("title", "Click to start animation!");
+  }
 });
 
 // Calling the renderButtons function to display the intial buttons

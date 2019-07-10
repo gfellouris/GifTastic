@@ -10,7 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Added a link to Bootstrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <link href="https://fonts.googleapis.com/css?family=Leckerli+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -25,29 +27,58 @@
 
     <div class="container">
 
+        <br>
+
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="text-center">GIF Image Randomizer Finder</h1>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="buttons-view"></div>
+                <div class="card card-default">
+                    <div class="card-header">
+                        <strong>Click a button to display the images:</strong>
+                    </div>
+                    <div class="card-body">
+                        <div id="buttons-view"></div>
+                    </div>
+                </div>
             </div>
         </div>
+        <br>
 
         <div class="row">
             <div class="col-md-12">
                 <!-- FORM START -->
-                <form>
-                    <div class="form-group">
-                        <label>Add a topic:</label>
-                        <input type="topic" class="form-control" id="topic">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <strong><span class="glyphicon glyphicon-plus"></span>Enter any topic:</strong>
                     </div>
-                    <button id="btnSubmit" type="submit" class="btn btn-default">Submit</button>
-                </form>
-                <!-- FORM END -->
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="topic" class="form-control" id="topic">
+                            </div>
+                            <button id="btnSubmit" type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                    <!-- FORM END -->
+                </div>
             </div>
         </div>
 
+        <br>
+
         <div class="row">
             <div class="col-md-12">
-                <div id="topic-view"></div>
+                <div class="card card-default">
+                    <div class="card-header">
+                        <strong>Images:</strong>
+                    </div>
+                    <div class="card-body">
+                        <div id="topic-view"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
