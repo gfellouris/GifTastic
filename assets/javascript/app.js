@@ -7,38 +7,7 @@ var topics = [
   "emoji"
 ];
 
-// =========== Function for dumping the JSON content for each button into the div
-// function displayTopicInfo(topic) {
-//   var queryURL =
-//     "https://api.giphy.com/v1/gifs/search?q=" +
-//     topic +
-//     "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
-//   console.log(queryURL);
-//   $.ajax({
-//     url: queryURL,
-//     method: "GET"
-//   }).then(function(response) {
-//     console.log(response);
-//     var results = response.data;
-//     console.log(results);
-
-//     for (var i = 0; i < results.length; i++) {
-//       var topicDiv = $("<div>");
-//       var p = $("<p>");
-//       p.text(results[i].rating.toUpperCase());
-//       var topicImage = $("<img id=\"gif\">");
-//       topicImage.attr("src", results[i].images.fixed_height.url);
-//       topicImage.attr("data-animate", results[i].images.fixed_height.url);
-//       topicImage.attr("data-still", results[i].images.fixed_height_still.url);
-//       console.log("still=" + results[i].images.fixed_height_still.url);
-//       topicImage.attr("data-state", "still");
-//       topicDiv.append(p);
-//       topicDiv.append(topicImage);
-//       $("#topic-view").prepend(topicDiv);
-//     }
-//   });
-// }
-// =========== Function for displaying movie data
+// =========== Function to create buttons
 function renderButtons() {
   $("#buttons-view").empty();
 
@@ -51,7 +20,7 @@ function renderButtons() {
   }
 }
 
-//  ===========  This function handles events where one button is clicked
+//  ===========  This function handles events where submit button is clicked
 $("#btnSubmit").on("click", function(event) {
   event.preventDefault();
 
@@ -65,9 +34,6 @@ $("#btnSubmit").on("click", function(event) {
 });
 
 //  ===========  MAIN
-// $(document).ready(function() {
-//   $('[data-toggle="tooltip"]').tooltip();
-// });
 
 $(document).on("click", ".topicClass", function() {
   var topicSelected = $(this).attr("data-name");
